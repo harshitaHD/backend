@@ -29,7 +29,8 @@ def login():
             login_data = request.get_json()
             email = login_data["email"]
             password = login_data["password"]
-            if user := User.query.filter_by(email=email).first():
+            if User.query.filter_by(email=email).first():
+                user = User.query.filter_by(email=email).first()
                 if check_password_hash(user.password, password):
                     login_user(user, remember=True)
                     json_data = jsonify(
